@@ -10,7 +10,16 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/h5_api': {
+        target: 'http://localhost:9090', // 10.199.5.19:7210
+        changeOrigin: true,
+        secure: false,
+        pathRewrite: {
+          '^/h5_api': ''
+        }
+      },
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST

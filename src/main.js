@@ -12,6 +12,9 @@ Vue.use(VueRouter)
 FastClick.attach(document.body)
 Vue.config.productionTip = false
 
+let H5BASE_URL = '/h5_api'
+Vue.prototype.H5BASE_URL = H5BASE_URL
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app-box',
