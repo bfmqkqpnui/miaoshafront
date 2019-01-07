@@ -33,7 +33,11 @@
     <group v-if="tabIndex == 0">
       <x-input title="账号" v-model="account.phone" required placeholder="请输入账号"></x-input>
       <x-input title="密码" v-model="account.password" required placeholder="请输入密码"></x-input>
-      <x-input title="验证码" v-model="account.password" required placeholder="请输入验证码"></x-input>
+      <x-input title="验证码" v-model="account.password" required placeholder="请输入验证码">
+        <div slot="right">
+          <div slot="right-full-height"><img src="" alt=""></div>
+        </div>
+      </x-input>
       <!-- <canvas width="100" height="46" id="verifyCanvas" v-show="showCanvas"></canvas>
       <img id="code_img" :src="codeUrl"> -->
     </group>
@@ -51,7 +55,7 @@
 </template>
 <script>
 import html2canvas from 'html2canvas'
-import api from './js'
+import api from './api'
 export default {
   data() {
     return {
@@ -89,7 +93,6 @@ export default {
       this.tabIndex = index;
     },
     getVerifyCode() {
-      console.log(this.H5BASE_URL, 9527)
       api.queryVerifyCode().then(res => {
         console.log(res)
       })

@@ -2,12 +2,14 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import FastClick from 'fastclick'
+import VueResource from 'vue-resource'
 import VueRouter from 'vue-router'
 import router from './router'
 import App from './App'
 import bluer from './blur'
 
 Vue.use(bluer)
+Vue.use(VueResource)
 Vue.use(VueRouter)
 FastClick.attach(document.body)
 Vue.config.productionTip = false
