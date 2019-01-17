@@ -1,4 +1,4 @@
-import {XHeader, Tab, TabItem, Group, Cell, XInput, XTextarea, XSwitch, Calendar, XNumber, Radio, XAddress, Datetime, Selector} from 'vux'
+import {XHeader, Tab, TabItem, Group, Cell, XInput, XTextarea, XSwitch, Calendar, XNumber, Radio, XAddress, Datetime, Selector, CheckIcon, XButton} from 'vux'
 
 const install = function (Vue) {
     if (install.installed) return;
@@ -17,10 +17,17 @@ const install = function (Vue) {
     Vue.component('XAddress', XAddress)
     Vue.component('Datetime', Datetime)
     Vue.component('Selector', Selector)
+    Vue.component('check-icon', CheckIcon)
+    Vue.component('XButton', XButton)
     
     Vue.component('v-mobile-head', resolve => {
         require(['../components/mobileHeader/header.vue'], resolve)
     })
+
+    // 图形验证码
+    Vue.component('v-identify', resolve => {
+      require(['../components/identify/identify.vue'], resolve)
+  })
 }
 
 // auto install

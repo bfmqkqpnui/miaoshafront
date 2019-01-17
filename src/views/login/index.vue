@@ -2,6 +2,19 @@
   img {
     height: 46px;
   }
+  .forget {
+    line-height: 23px;
+    color: #222;
+    vertical-align: middle;
+    float: right;
+    margin-right: .2rem;
+  }
+  .bottom{
+    position: fixed;
+    bottom: .1rem;
+    left: 0;
+    right: 0;
+  }
 </style>
 
 <template>
@@ -31,26 +44,25 @@
     </tab>
 
     <group v-if="tabIndex == 0">
-      <x-input title="账号" v-model="account.phone" required placeholder="请输入账号"></x-input>
-      <x-input title="密码" v-model="account.password" required placeholder="请输入密码"></x-input>
-      <x-input title="验证码" v-model="account.password" required placeholder="请输入验证码">
-        <div slot="right">
-          <div slot="right-full-height"><img src="" alt=""></div>
-        </div>
+      <x-input title="" v-model="account.phone" required placeholder="请输入账号"></x-input>
+      <x-input type="password" title="" v-model="account.password" required placeholder="请输入密码"></x-input>
+      <x-input title="" v-model="account.identifyCode" required placeholder="请输入验证码" :max="verify.codeMaxLength">
+        <img slot="right-full-height" class="real_pic" :src="verify.codeUrl" @click.stop="getVerifyCode"/>
       </x-input>
-      <!-- <canvas width="100" height="46" id="verifyCanvas" v-show="showCanvas"></canvas>
-      <img id="code_img" :src="codeUrl"> -->
     </group>
+    <template v-if="tabIndex == 0">
+      <check-icon :value.sync="NoLandFall">两周内免登陆</check-icon>
+      <span class="forget">忘记密码?</span>
+    </template>
+    
     <group v-else-if="tabIndex == 1">
-      <x-input title="手机" v-model="account.phone" required placeholder="请输入手机号"></x-input>
-      <x-input title="短信" v-model="account.password" required placeholder="请输入短信验证码"></x-input>
+      <x-input title="" v-model="account.phone" required placeholder="请输入手机号"></x-input>
+      <x-input title="" v-model="account.password" required placeholder="请输入短信验证码"></x-input>
     </group>
 
-    <div class="imageWrapper" ref="imageWrapper">
-      <img class="real_pic" :src="codeUrl" />
-      <slot></slot>
+    <div class="bottom btn">
+      <x-button type="warn" :show-loading="loading">登录</x-button>
     </div>
-
   </div>
 </template>
 <script>
@@ -73,10 +85,19 @@ export default {
       tabIndex: 1,
       account: {
         name: '',
-        password: ''
+        password: '',
+        identifyCode: ''
       },
       showCanvas: false,
-      codeUrl: '',
+      // 图形验证码相关属性
+      verify: {
+        codeUrl: '',
+        codeKey: '',
+        codeMaxLength: 4,
+      },
+      // 免登陆
+      NoLandFall: false,
+      loading: false,
     };
   },
   created() {
@@ -95,6 +116,12 @@ export default {
     getVerifyCode() {
       api.queryVerifyCode().then(res => {
         console.log(res)
+        if (res.body.obj) {
+          // this.codeUrl = res.body.obj
+          this.verify.codeUrl = 'data:image/jpeg;base64,' + res.body.obj.imgBasic64
+          this.verify.codeKey = res.body.obj.verifyCodeKey
+          console.log(77, this.verify)
+        }
       })
     },
     // 绘制验证码
