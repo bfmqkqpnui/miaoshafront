@@ -7,10 +7,13 @@ import VueRouter from 'vue-router'
 import router from './router'
 import App from './App'
 import bluer from './blur'
+import  { ToastPlugin } from 'vux'
+
 
 Vue.use(bluer)
 Vue.use(VueResource)
 Vue.use(VueRouter)
+Vue.use(ToastPlugin)
 FastClick.attach(document.body)
 Vue.config.productionTip = false
 

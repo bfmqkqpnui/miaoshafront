@@ -44,10 +44,10 @@
     </tab>
 
     <group v-if="tabIndex == 0">
-      <x-input title="" v-model="account.phone" required placeholder="请输入账号"></x-input>
+      <x-input title="" v-model="account.name" required placeholder="请输入账号"></x-input>
       <x-input type="password" title="" v-model="account.password" required placeholder="请输入密码"></x-input>
-      <x-input title="" v-model="account.identifyCode" required placeholder="请输入验证码" :max="verify.codeMaxLength">
-        <img slot="right-full-height" class="real_pic" :src="verify.codeUrl" @click.stop="getVerifyCode"/>
+      <x-input title="" v-model="account.identifyCode" required placeholder="请输入验证码" :max="account.verify.codeMaxLength">
+        <img slot="right-full-height" class="real_pic" :src="account.verify.codeUrl" @click.stop="getVerifyCode"/>
       </x-input>
     </group>
     <template v-if="tabIndex == 0">
@@ -57,17 +57,25 @@
     
     <group v-else-if="tabIndex == 1">
       <x-input title="" v-model="account.phone" required placeholder="请输入手机号"></x-input>
-      <x-input title="" v-model="account.password" required placeholder="请输入短信验证码"></x-input>
+      <x-input title="" v-model="account.password" required placeholder="请输入短信验证码">
+        <x-button slot="right" type="primary" mini @click.native="sendMsg" v-if="canSendFlag" v-text="sendMsgValue"></x-button>
+        <x-button slot="right" mini plain v-else v-text="countTime"></x-button>
+      </x-input>
     </group>
 
     <div class="bottom btn">
-      <x-button type="warn" :show-loading="loading">登录</x-button>
+      <x-button type="warn" :show-loading="loading" action-type="button" @click.native="login">登录</x-button>
     </div>
+
+    <!-- <v-toast :text="toast.text" :canShowToast="toast.canShowToast"></v-toast> -->
   </div>
 </template>
 <script>
 import html2canvas from 'html2canvas'
 import api from './api'
+import utils from '../../utils'
+import {MD5} from '../../md5'
+
 export default {
   data() {
     return {
@@ -82,22 +90,35 @@ export default {
         activeColor: "#d0111a",
         defaultColor: "#444"
       },
-      tabIndex: 1,
+      tabIndex: 0,
       account: {
+        // 登录账号
         name: '',
+        // 登录手机号
+        phone: '',
+        // 登录密码
         password: '',
-        identifyCode: ''
+        // 短信验证码
+        identifyCode: '',
+        // 图形验证码相关属性
+        verify: {
+          codeUrl: '',
+          codeKey: '',
+          codeMaxLength: 4,
+        },
       },
       showCanvas: false,
-      // 图形验证码相关属性
-      verify: {
-        codeUrl: '',
-        codeKey: '',
-        codeMaxLength: 4,
-      },
       // 免登陆
       NoLandFall: false,
       loading: false,
+      toast: {
+        text: 'loading...',
+        canShowToast:false,
+      },
+      canSendFlag: true,
+      countTime: 5,
+      clearTime: '',
+      sendMsgValue: '发送短信验证码',
     };
   },
   created() {
@@ -107,88 +128,93 @@ export default {
   },
   methods: {
     login() {
-      console.log("登录");
+      // 先判断是哪种登录方式
+      if (this.tabIndex == 0) {
+        console.log("账号密码登录");
+        if (this.checkByPwd()) {
+          console.log("验证通过调用登录接口")
+          let params = {
+            name: this.account.name,
+            pwd: MD5(this.account.password),
+            identifyCode: this.account.identifyCode,
+            identifyKey: this.account.verify.codeKey
+          }
+        }
+      } else {
+        console.log("短信登录");
+      }
+    },
+    // 登录密码方式校验
+    checkByPwd() {
+      this.loading = true
+      if (this.account.name == null || !utils.isExist(this.account.name)) {
+        this.showToast('账户不能为空')
+        this.loading = false
+        return false
+      }
+      if (this.account.password == null || !utils.isExist(this.account.password)) {
+        this.showToast('密码不能为空')
+        this.loading = false
+        return false
+      }
+      if (this.account.identifyCode == null || !utils.isExist(this.account.identifyCode)) {
+        this.showToast('验证码不能为空')
+        this.loading = false
+        return false
+      }
+      this.loading = false
+      return true
+    },
+    // toast
+    showToast(text) {
+      this.$vux.toast.show({
+        type: 'text',
+        position: 'middle',
+        text: text || 'Loading...'
+      })
+    },
+    // 倒计时
+    countDown() {
+      this.canSendFlag = false
+      this.countTime = 5
+      clearInterval(this.clearTime)
+      const that = this
+      this.clearTime = setInterval(() => {
+        that.countTime --
+        if (that.countTime <= 0) {
+          that.countTime = 0
+          that.canSendFlag = true
+          that.sendMsgValue = "重新发送短信验证码"
+          clearInterval(that.clearTime)
+        }
+        console.log(">>>", that.canSendFlag)
+      }, 1000)
+    },
+    hideToast() {
+      this.$vux.toast.hide()
     },
     handler(index) {
-      console.log(index, 89999);
+      console.log(index, 89999, this.clearTime);
       this.tabIndex = index;
+      if (this.clearTime) {
+        clearInterval(this.clearTime)
+      }
     },
     getVerifyCode() {
       api.queryVerifyCode().then(res => {
         console.log(res)
         if (res.body.obj) {
           // this.codeUrl = res.body.obj
-          this.verify.codeUrl = 'data:image/jpeg;base64,' + res.body.obj.imgBasic64
-          this.verify.codeKey = res.body.obj.verifyCodeKey
-          console.log(77, this.verify)
+          this.account.verify.codeUrl = 'data:image/jpeg;base64,' + res.body.obj.imgBasic64
+          this.account.verify.codeKey = res.body.obj.verifyCodeKey
+          console.log(77, this.account.verify)
         }
       })
     },
-    // 绘制验证码
-    drawCode (str) {
-      // 获取HTML端画布
-      let canvas = document.getElementById("verifyCanvas")
-      // 获取画布2D上下文 
-      let context = canvas.getContext("2d")
-      // 画布填充色
-      context.fillStyle = "cornflowerblue"
-      // 清空画布
-      context.fillRect(0, 0, canvas.width, canvas.height)
-      //设置字体颜色
-      context.fillStyle = "white"
-      //设置字体
-      context.font = "25px Arial"
-      let rand = new Array();
-      let x = new Array();
-      let y = new Array();
-      for (let i = 0; i < 4; i++) {
-          rand.push(rand[i]);
-          rand[i] = nums[Math.floor(Math.random() * nums.length)]
-          x[i] = i * 20 + 10;
-          y[i] = Math.random() * 20 + 20;
-          context.fillText(rand[i], x[i], y[i]);
-      }
-      str = rand.join('').toUpperCase();
-      //画3条随机线
-      for (let i = 0; i < 3; i++) {
-          this.drawline(canvas, context);
-      }
-
-      // 画30个随机点
-      for (let i = 0; i < 30; i++) {
-          this.drawDot(canvas, context);
-      }
-      this.convertCanvasToImage(canvas);
-      return str;
-    },
-    // 绘制图片
-    convertCanvasToImage (canvas) {
-      // document.getElementById("verifyCanvas").style.display = "none";
-      // let image = document.getElementById("code_img");
-      this.codeUrl = canvas.toDataURL("image/png");
-    },
-    // 随机线
-    drawline (canvas, context) {
-      // 随机线的起点x坐标是画布x坐标0位置，y坐标是画布高度的随机数
-      context.moveTo(Math.floor(Math.random() * canvas.width), Math.floor(Math.random() * canvas.height))
-      // 随机线的终点x坐标是画布宽度，y坐标是画布高度的随机数
-      context.lineTo(Math.floor(Math.random() * canvas.width), Math.floor(Math.random() * canvas.height))
-      //随机线宽
-      context.lineWidth = 0.5
-      //随机线描边属性
-      context.strokeStyle = 'rgba(50,50,50,0.3)'
-      //描边，即起点描到终点
-      context.stroke()
-    },
-    // 随机点(所谓画点其实就是画1px像素的线)
-    drawDot (canvas, context) {
-      let px = Math.floor(Math.random() * canvas.width);
-      let py = Math.floor(Math.random() * canvas.height);
-      context.moveTo(px, py);
-      context.lineTo(px + 1, py + 1);
-      context.lineWidth = 0.2;
-      context.stroke();
-    },
+    sendMsg() {
+      console.log("发送短信验证码")
+      this.countDown()
+    }
   }
 };
 </script>
