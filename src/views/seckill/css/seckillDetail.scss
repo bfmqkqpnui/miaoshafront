@@ -1,0 +1,238 @@
+@charset "utf-8";
+@import "src/sass/tobe/base";
+#singleproduct {
+  .panicbuying-title {
+    background: #f0f0f0;
+    line-height: rem(70);
+    height: rem(70);
+    padding: rem(0) rem(20);
+    .panicbuying-left {
+      float: left;
+      i {
+        height: rem(26);
+        float: left;
+        width: rem(3);
+        display: inline-block;
+        background: #faa62d;
+        margin-right: rem(8);
+        margin-top: rem(21)
+      }
+      strong {
+        font-size: rem(28);
+        color: #333333
+      }
+      span {
+        font-size: rem(24);
+        color: #999999
+      }
+    }
+    .panicbuying-right {
+      float: right;
+      color: #666666;
+      font-size: rem(28);
+      i {
+        background: url("../img/countdown-icon.png") no-repeat center center;
+        background-size: rem(26) rem(26);
+        display: inline-block;
+        margin-right: rem(9);
+        width: rem(26);
+        height: rem(26);
+        float: left;
+        margin-top: rem(22)
+      }
+    }
+  }
+  .product-name {
+    background: #FFFFFF;
+    padding: rem(24) rem(20) rem(8);
+    font-size: rem(32);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    span {
+      border: 1px solid #E6133C;
+      font-size: rem(24);
+      display: inline-block;
+      border-radius: rem(6);
+      padding: rem(0) rem(10);
+      line-height: rem(32);
+      color: #E6133C;
+      -ms-transform: translateY(rem(-4));
+      transform: translateY(rem(-4));
+      -webkit-transform: translateY(rem(-4));
+      margin-right: rem(14)
+    }
+  }
+  .button-container {
+    padding-bottom: rem(116);
+    position: relative;
+    z-index: 1005;
+    .config-buy {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 1rem;
+      white-space: nowrap;
+      line-height: 1rem;
+      font-size: .36rem;
+      z-index: 2;
+      background: #E6133C;
+      text-align: center;
+      color: #FFFFFF;
+      border: none;
+      outline: none
+    }
+    .no-goods {
+      background: #bbbbbb
+    }
+  }
+  .seckill-popup {
+    width: rem(628);
+    height: rem(680);
+    position: fixed;
+    z-index: 11000;
+    left: 50%;
+    margin-left: rem(-314);
+    margin-top: 0;
+    top: 50%;
+    text-align: center;
+    border-radius: rem(12);
+    -webkit-transform: translate(0, -50%) !important;
+    -ms-transform: translate(0, -50%) !important;
+    transform: translate(0, -50%) !important;
+    -webkit-transition-property: opacity;
+    transition-property: opacity;
+    color: #666;
+    display: block;
+    background: #ffffff;
+  }
+  .seckill-frame {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    .line-frame {
+      width: 100%;
+      text-align: center;
+      display: -webkit-box;
+      display: -moz-box;
+      display: -webkit-flex;
+      display: -moz-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: center;
+      -moz-box-pack: center;
+      box-pack: center;
+      -webkit-justify-content: center;
+      -moz-justify-content: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      .seckill-button {
+        width: rem(364);
+        height: rem(80);
+        line-height: rem(80);
+        border: 1px solid #B80E2C;
+        border-radius: rem(4);
+        color: #B80E2C;
+        margin-top: rem(62)
+      }
+    }
+    .seckilol-close {
+      width: rem(80);
+      height: rem(80);
+      position: absolute;
+      right: 0;
+      top: rem(-40);
+      background: url("../img/seckill-icon4.png") no-repeat center center
+      #fff;
+      background-size: rem(30);
+      border-top-left-radius: rem(40);
+      border-top-right-radius: rem(40);
+      display: inline-block;
+      cursor: pointer
+    }
+    .seckill-icon1 {
+      width: rem(628);
+      height: rem(78);
+      background: url("../img/seckill-icon1.png") no-repeat center center;
+      background-size: rem(78);
+      display: inline-block;
+      margin-top: rem(154)
+    }
+    .seckill-icon2 {
+      width: rem(628);
+      height: rem(78);
+      background: url("../img/seckill-icon2.png") no-repeat center center;
+      background-size: rem(78);
+      display: inline-block;
+      margin-top: rem(154)
+    }
+    .seckill-word {
+      width: 100%;
+      line-height: rem(42);
+      height: rem(168);
+      font-size: rem(30);
+      color: #191919;
+      padding: rem(0) rem(104);
+      text-align: center;
+      margin-top: rem(32)
+    }
+    .grey-font {
+      font-size: rem(24);
+      color: #4f4f4f
+    }
+    .seckill-cooltime {
+      font-size: .3rem;
+      color: #D46A7D
+    }
+  }
+  .mark {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 999
+  }
+  .mackSpikeCode{
+    width: rem(628);
+    height: rem(505);
+    position: fixed;
+    z-index: 11000;
+    left: 50%;
+    margin-left: -3.14rem;
+    margin-top: 0;
+    top: 50%;
+    text-align: center;
+    border-radius: rem(12);
+    -webkit-transform: translate(0, -50%) !important;
+    -ms-transform: translate(0, -50%) !important;
+    transform: translate(0, -50%) !important;
+    -webkit-transition-property: opacity;
+    transition-property: opacity;
+    color: #666;
+    display: none;
+    background: #ffffff;
+    .spikeCode{
+      width: 100%;
+      height: 100%;
+      border: 0;border-radius: rem(15);
+    }
+    .seckilol-closes{
+      width: rem(80);
+      height: rem(80);
+      position: fixed;
+      left: 50%;
+      margin-left: rem(-40);
+      bottom: rem(-120);
+      background: url(../img/seckill-icon4.png) no-repeat center center #fff;
+      background-size: rem(30);
+      border-radius: 50%;
+      display: inline-block;
+      cursor: pointer;
+      z-index: 1000;
+    }
+  }
+}

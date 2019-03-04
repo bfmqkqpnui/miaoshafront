@@ -9,6 +9,8 @@
         slot="right"
         style="color:#d0111a"
       >注册</a>
+      <slot slot="right" name="btn-right" v-else></slot>
+      <!-- <a slot="right" v-else>feedBook</a> -->
     </x-header>
   </div>
 </template>
