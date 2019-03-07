@@ -1,71 +1,70 @@
 @charset "utf-8";
-@import "src/sass/tobe/base";
 #singleproduct {
   .panicbuying-title {
     background: #f0f0f0;
-    line-height: rem(70);
-    height: rem(70);
-    padding: rem(0) rem(20);
+    line-height: .7rem;
+    height: .7rem;
+    padding: 0 .2rem;
     .panicbuying-left {
       float: left;
       i {
-        height: rem(26);
+        height: .26rem;
         float: left;
-        width: rem(3);
+        width: .03rem;
         display: inline-block;
         background: #faa62d;
-        margin-right: rem(8);
-        margin-top: rem(21)
+        margin-right: .08rem;
+        margin-top: .21rem;
       }
       strong {
-        font-size: rem(28);
+        font-size: .28rem;
         color: #333333
       }
       span {
-        font-size: rem(24);
+        font-size: .24rem;
         color: #999999
       }
     }
     .panicbuying-right {
       float: right;
       color: #666666;
-      font-size: rem(28);
+      font-size: .28rem;
       i {
         background: url("../img/countdown-icon.png") no-repeat center center;
-        background-size: rem(26) rem(26);
+        background-size: .26rem .26rem;
         display: inline-block;
-        margin-right: rem(9);
-        width: rem(26);
-        height: rem(26);
+        margin-right: .09rem;
+        width: .26rem;
+        height: .26rem;
         float: left;
-        margin-top: rem(22)
+        margin-top: .22rem
       }
     }
   }
   .product-name {
     background: #FFFFFF;
-    padding: rem(24) rem(20) rem(8);
-    font-size: rem(32);
+    padding: .24rem .2rem .08rem;
+    font-size: .32rem;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
     span {
       border: 1px solid #E6133C;
-      font-size: rem(24);
+      font-size: .24rem;
       display: inline-block;
-      border-radius: rem(6);
-      padding: rem(0) rem(10);
-      line-height: rem(32);
+      border-radius: .06rem;
+      padding: 0 .1rem;
+      line-height: .32rem;
       color: #E6133C;
-      -ms-transform: translateY(rem(-4));
-      transform: translateY(rem(-4));
-      -webkit-transform: translateY(rem(-4));
-      margin-right: rem(14)
+      -ms-transform: translateY(-.04rem);
+      transform: translateY(-.04rem);
+      -webkit-transform: translateY(-.04rem);
+      margin-right: .14rem
     }
   }
   .button-container {
-    padding-bottom: rem(116);
+    padding-bottom: 1.16rem;
     position: relative;
     z-index: 1005;
     .config-buy {
@@ -89,16 +88,16 @@
     }
   }
   .seckill-popup {
-    width: rem(628);
-    height: rem(680);
+    width: 6.28rem;
+    height: 6.8rem;
     position: fixed;
     z-index: 11000;
     left: 50%;
-    margin-left: rem(-314);
+    margin-left: -3.14rem;
     margin-top: 0;
     top: 50%;
     text-align: center;
-    border-radius: rem(12);
+    border-radius: .12rem;
     -webkit-transform: translate(0, -50%) !important;
     -ms-transform: translate(0, -50%) !important;
     transform: translate(0, -50%) !important;
@@ -129,57 +128,57 @@
       -ms-flex-pack: center;
       justify-content: center;
       .seckill-button {
-        width: rem(364);
-        height: rem(80);
-        line-height: rem(80);
+        width: 3.64rem;
+        height: .8rem;
+        line-height: .8rem;
         border: 1px solid #B80E2C;
-        border-radius: rem(4);
+        border-radius: .04rem;
         color: #B80E2C;
-        margin-top: rem(62)
+        margin-top: .62rem
       }
     }
     .seckilol-close {
-      width: rem(80);
-      height: rem(80);
+      width: .8rem;
+      height: .8rem;
       position: absolute;
       right: 0;
-      top: rem(-40);
+      top: -.4rem;
       background: url("../img/seckill-icon4.png") no-repeat center center
       #fff;
-      background-size: rem(30);
-      border-top-left-radius: rem(40);
-      border-top-right-radius: rem(40);
+      background-size: .3rem;
+      border-top-left-radius: .4rem;
+      border-top-right-radius: .4rem;
       display: inline-block;
       cursor: pointer
     }
     .seckill-icon1 {
-      width: rem(628);
-      height: rem(78);
+      width: 6.28rem;
+      height: .78rem;
       background: url("../img/seckill-icon1.png") no-repeat center center;
-      background-size: rem(78);
+      background-size: .78rem;
       display: inline-block;
-      margin-top: rem(154)
+      margin-top: 1.54rem
     }
     .seckill-icon2 {
-      width: rem(628);
-      height: rem(78);
+      width: 6.28rem;
+      height: .78rem;
       background: url("../img/seckill-icon2.png") no-repeat center center;
-      background-size: rem(78);
+      background-size: .78rem;
       display: inline-block;
-      margin-top: rem(154)
+      margin-top: 1.54rem
     }
     .seckill-word {
       width: 100%;
-      line-height: rem(42);
-      height: rem(168);
-      font-size: rem(30);
+      line-height: .42rem;
+      height: 1.68rem;
+      font-size: .3rem;
       color: #191919;
-      padding: rem(0) rem(104);
+      padding: 0 1.04rem;
       text-align: center;
-      margin-top: rem(32)
+      margin-top: .32rem
     }
     .grey-font {
-      font-size: rem(24);
+      font-size: .24rem;
       color: #4f4f4f
     }
     .seckill-cooltime {
@@ -197,8 +196,8 @@
     z-index: 999
   }
   .mackSpikeCode{
-    width: rem(628);
-    height: rem(505);
+    width: 6.28rem;
+    height: 5.05rem;
     position: fixed;
     z-index: 11000;
     left: 50%;
@@ -206,7 +205,7 @@
     margin-top: 0;
     top: 50%;
     text-align: center;
-    border-radius: rem(12);
+    border-radius: .12rem;
     -webkit-transform: translate(0, -50%) !important;
     -ms-transform: translate(0, -50%) !important;
     transform: translate(0, -50%) !important;
@@ -218,17 +217,17 @@
     .spikeCode{
       width: 100%;
       height: 100%;
-      border: 0;border-radius: rem(15);
+      border: 0;border-radius: .15rem;
     }
     .seckilol-closes{
-      width: rem(80);
-      height: rem(80);
+      width: .8rem;
+      height: .8rem;
       position: fixed;
       left: 50%;
-      margin-left: rem(-40);
-      bottom: rem(-120);
+      margin-left: -.4rem;
+      bottom: -1.2rem;
       background: url(../img/seckill-icon4.png) no-repeat center center #fff;
-      background-size: rem(30);
+      background-size: .3rem;
       border-radius: 50%;
       display: inline-block;
       cursor: pointer;

@@ -1,8 +1,10 @@
 <style lang="scss" src="./css/seckillDetail.scss" scoped></style>
 <template>
   <div id="singleproduct">
-    <bl-h5-header :isBack="true"></bl-h5-header>
-      <bl-slide :ad="false" :slides="allSlides" :autoPlay="true"></bl-slide>
+    <!-- 头部 -->
+    <v-mobile-head :title="title" style="border-bottom: #ccc 1px solid"></v-mobile-head>
+    <!-- 详情轮播 -->
+    <v-slide :ad="false" :slides="allSlides" :autoPlay="true"></v-slide>
     <div class="panicbuying-title">
         <div class="panicbuying-left">
           <i></i><strong>{{secKillstateNmae}}</strong>{{secKillstateNmae1}}
@@ -12,10 +14,11 @@
           <bl-countdown v-if="timeRemaining" :diffTime="timeRemaining"></bl-countdown>
         </div>
     </div>
-    <div class="product-name"><span>预约券</span>{{seckillDetailResult.detail ? seckillDetailResult.detail.goodsName : ''}}
+    <div class="product-name"><span>秒杀</span>{{seckillDetailResult.detail ? seckillDetailResult.detail.goodsName : ''}}
     </div>
+    <!-- 秒杀按钮 -->
     <div class="button-container">
-          <div class="config-buy seckill" :class="buttonFlag ? 'no-goods' : ''" @click="draw">{{buttonName}}</div>
+      <div class="config-buy seckill" :class="buttonFlag ? 'no-goods' : ''" @click="draw">{{buttonName}}</div>
     </div>
     <div class="seckill-popup" v-if="mackFlag">
       <div class="seckill-frame">
@@ -37,32 +40,28 @@
   export default {
     data() {
       return {
-          msg: '', // 领取状态文描
-          seckillDetailResult: {}, // 领取结果
-          mackFlag: false, // 弹框标志
-          mackBackFlag: false, // 弹框蒙层flag
-          mackNextFlag: '2', //  隐藏 0 展示1 1、2区分不同点击事件
-          buttonName: '', // 按钮名称
-          buttonFlag: false, // 按钮状态
-          secKillstateNmae: '',
-          secKillstateNmae1: '',
-          secKillstateFlag: true,
-          allSlides: [], // 图片
-          timeRemaining: '',
-          actTime: this.$route.query.actTime, // 商品ID
-          skuID: this.$route.query.skuID, // 场次信息
-          successFlag: false,
-          time: '5s'
+        title: '秒杀详情',
+        msg: '', // 领取状态文描
+        seckillDetailResult: {}, // 领取结果
+        mackFlag: false, // 弹框标志
+        mackBackFlag: false, // 弹框蒙层flag
+        mackNextFlag: '2', //  隐藏 0 展示1 1、2区分不同点击事件
+        buttonName: '已结束', // 按钮名称
+        buttonFlag: true, // 按钮状态
+        secKillstateNmae: '',
+        secKillstateNmae1: '',
+        secKillstateFlag: false, // 秒杀剩余时间状态
+        allSlides: [], // 图片
+        timeRemaining: '',
+        actTime: this.$route.query.actTime, // 商品ID
+        skuID: this.$route.query.skuID, // 场次信息
+        successFlag: false,
+        time: '5s'
       }
     },
     mounted() {
-      this.init()
-      let _this = this
-      window.addEventListener('message', function(e) {
-        if (e.data && e.data.resCode != '' && e.data.resCode != null) {
-          _this.showMack(e.data)
-        }
-      })
+      // this.init()
+      this.allSlides = this.allSlides.concat('http://s9.sinaimg.cn/mw690/003ucojUzy6NBa4d74I98&690')
     },
     methods: {
       init() {
@@ -83,7 +82,7 @@
           $title: '秒杀详情'
         })
       },
-      querySeckillCouponDetail() { // 查询秒杀券信息
+      querySeckillCouponDetail() { // 查询秒杀商品信息
         api.querySeckillCouponDetail({
           memberId: this.memberId,
           actTime: this.actTime,
@@ -96,21 +95,21 @@
                 this.allSlides = this.allSlides.concat({"mediaUrl": this.seckillDetailResult.detail.picUrl})
               }
               if (this.seckillDetailResult.flag && this.seckillDetailResult.flag == 1 && this.seckillDetailResult.storeSize != 0) {
-                  this.buttonName = '立即领券'
+                  this.buttonName = '立即抢购'
               } else if (this.seckillDetailResult.flag && this.seckillDetailResult.flag == 0) {
                   this.secKillstateNmae = '即将开始'
                   this.buttonName = '即将开抢'
                   this.buttonFlag = true
                   this.timeRemaining = this.seckillDetailResult.startTime - this.seckillDetailResult.sysTime
               } else {
-                  this.buttonName = '已领光'
+                  this.buttonName = '已抢光'
                   this.buttonFlag = true
                   this.secKillstateNmae = '已结束'
                   this.secKillstateFlag = false
               }
               if (this.seckillDetailResult.flag && this.seckillDetailResult.flag == 1) {
-                  this.secKillstateNmae = '抢券中'
-                  this.secKillstateNmae1 = '(每人限抢一张预约券)'
+                  this.secKillstateNmae = '抢购中'
+                  this.secKillstateNmae1 = '(每人限抢一件商品)'
                   this.timeRemaining = this.seckillDetailResult.endTime - this.seckillDetailResult.sysTime
               }
             } else {

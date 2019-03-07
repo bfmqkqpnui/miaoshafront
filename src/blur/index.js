@@ -33,6 +33,10 @@ const install = function (Vue) {
     Vue.component('v-toast', resolve => {
       require(['../components/common/toast.vue'], resolve)
     })
+    // 轮播
+    Vue.component('v-slide', resolve => {
+      require(['../components/slide/index.vue'], resolve)
+    })
 }
 
 // auto install

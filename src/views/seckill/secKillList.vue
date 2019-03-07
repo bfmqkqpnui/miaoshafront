@@ -3,13 +3,6 @@
   <div id="seckill">
     <div class="content">
       <!-- 头部导航 -->
-      <!-- <bl-bar flex barStyle="bar-white">
-        <div class="button" slot="left-button" v-back>
-          <div class="iconfont arrow-back"></div>
-        </div>
-        <div slot="title"><img src="./img/seckill-title.png"></div>
-        <div class="button" slot="right-button" @click="toggleActivityuleRule('show')">活动规则</div>
-      </bl-bar> -->
       <v-mobile-head :title="title" style="border-bottom: #ccc 1px solid" :showBackRightbuttons="true"><a slot="btn-right" @click.stop="toggleActivityuleRule('show')">活动规则</a></v-mobile-head>
     </div>
     <!-- 秒杀时间段 -->
@@ -69,7 +62,7 @@
             </div>
           </li>
           
-          <li>
+          <li @click.stop="grabTickets">
             <div class="kill-box">
               <div class="kill-img">
                 <img src="./img/footprint1.jpg">
@@ -78,7 +71,7 @@
                   <img src="./img/out-img.png"/>
                 </div>
               </div>
-              <div class="kill-name"><span v-text="brandTitle"></span> 伊斯紧致打我打我稍等安慰大声对我订单安慰</div>
+              <div class="kill-name"><span v-text="brandTitle" style='color:red'></span> 伊斯紧致打我打我稍等安慰大声对我订单安慰</div>
               <div class="kill-price">
                 <div class="price">
                   <p class="through">￥48.00</p>
@@ -92,7 +85,7 @@
               </div>
             </div>
           </li>
-          <li>
+          <li @click.stop="grabTickets">
             <div class="kill-box">
               <div class="kill-img">
                 <img src="./img/footprint1.jpg">
@@ -101,7 +94,7 @@
                   <img src="./img/out-img.png"/>
                 </div> -->
               </div>
-              <div class="kill-name"><span v-text="brandTitle"></span> 百事可乐220ml</div>
+              <div class="kill-name"><span v-text="brandTitle" style='color:red'></span> 百事可乐220ml</div>
               <div class="kill-price">
                 <div class="price">
                   <p class="through">￥4.00</p>
@@ -228,9 +221,11 @@
       findCoupons(opt) {
         console.log("获取优惠券列表:", opt, this.secKillInfo.activityRange[this.indexDate].serviceTime, opt.endTime)
       },
+      // 商品详情
       grabTickets(opt) {
         console.log(opt)
-        // this.$router.push({path: '/secKillDetail', query: {actTime: opt.activityCode, skuID: opt.goodsSid}})
+        // , query: {actTime: opt.activityCode, skuID: opt.goodsSid}
+        this.$router.push({path: '/secKill/detail'})
       },
     },
     created() {
