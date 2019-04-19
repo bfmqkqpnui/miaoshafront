@@ -85,6 +85,33 @@
               </div>
             </div>
           </li>
+
+          <li @click.stop="grabTickets">
+            <div class="kill-box">
+              <div class="kill-img">
+                <img src="./img/footprint1.jpg">
+                <!-- <div class="kill-logo">秒杀</div> -->
+                <!-- <div class="out-img">
+                  <img src="./img/out-img.png"/>
+                </div> -->
+              </div>
+              <div class="kill-name">
+                <div><span style=''>产品名称：</span> 粉钻</div>
+                <div><span style=''>产品编号：</span> 10110319</div>
+                <div><span style=''>证书号：</span> 10298090</div>
+                <div><span style=''>库存：</span> 2 件</div>
+                <div><span style=''>所属门店：</span> 嘉善一店</div>
+              </div>
+              <div class="kill-price">
+                <div class="kill-button-box">
+                  <div class="kill-button">
+                    查看详情
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
           <li @click.stop="grabTickets">
             <div class="kill-box">
               <div class="kill-img">
