@@ -37,6 +37,11 @@ const install = function (Vue) {
     Vue.component('v-slide', resolve => {
       require(['../components/slide/index.vue'], resolve)
     })
+
+    // 底部菜单
+    Vue.component('v-tab-bar', resolve => {
+      require(['../components/common/tabbar.vue'], resolve)
+    })
 }
 
 // auto install

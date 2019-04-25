@@ -7,18 +7,23 @@ import VueRouter from 'vue-router'
 import router from './router'
 import App from './App'
 import bluer from './blur'
-import  { ToastPlugin } from 'vux'
+import  { ToastPlugin, WechatPlugin } from 'vux'
 
+// 引入全局变量
+require('./base')
+
+// 引入mock
+require('./mockApi')
 
 Vue.use(bluer)
 Vue.use(VueResource)
 Vue.use(VueRouter)
 Vue.use(ToastPlugin)
+// 使用微信 jssdk
+Vue.use(WechatPlugin)
 FastClick.attach(document.body)
 Vue.config.productionTip = false
 
-let H5BASE_URL = '/h5_api'
-Vue.H5BASE_URL = Vue.prototype.H5BASE_URL = H5BASE_URL
 
 /* eslint-disable no-new */
 new Vue({

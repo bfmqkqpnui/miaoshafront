@@ -22,4 +22,8 @@ body {
   background-color: #f8f8f8;
   font-size: .24rem;
 }
+
+ul li{
+  list-style: none;
+}
 </style>
