@@ -20,5 +20,6 @@ export default {
 
 body {
   background-color: #f8f8f8;
+  font-size: .24rem;
 }
 </style>

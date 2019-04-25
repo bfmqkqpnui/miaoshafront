@@ -1,4 +1,4 @@
-<style scoped>
+<style scoped lang="scss">
   img {
     height: 46px;
   }
