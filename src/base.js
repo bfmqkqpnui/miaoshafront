@@ -1,5 +1,7 @@
 import Vue from 'vue'
 
+let APPID = 'wxaa70964d4443aa1f'
+let APPSECRET = '980860659430f5e4240502db684f3523'
 let API_URL = '/h5_api'
 
 let u = navigator.userAgent;
@@ -14,4 +16,6 @@ if (navigator.userAgent.toLowerCase().indexOf('micromessenger') >= 0) {
   Vue.$ISWECHAT = Vue.prototype.$ISWECHAT = false
 }
 
+Vue.$APPID = Vue.prototype.$APPID = APPID
+Vue.$APPSECRET = Vue.prototype.$APPSECRET = APPSECRET
 Vue.$API_URL = Vue.prototype.$API_URL = API_URL
