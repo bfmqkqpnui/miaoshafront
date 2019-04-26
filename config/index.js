@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/h5_api': {
-        target: 'http://10.199.5.19:9090', // 10.199.5.19:7210
+        target: 'http://47.96.101.31:7210', // 10.199.5.19:7210
         changeOrigin: true,
         secure: false,
         pathRewrite: {

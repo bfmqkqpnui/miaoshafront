@@ -39,11 +39,16 @@ export default function () {
   let sign = (json) => {
     // 时间戳
     var timestamp_val = Math.floor(new Date().getTime() / 1000);
+    console.log("签名时间戳：", timestamp_val)
     // 随机数
     var nonceStr_val = rand(16);
-    var url_total = window.location.href;
-    var string1 = "jsapi_ticket=" + json.data.js_token + "&noncestr=" + nonceStr_val + "&" + "timestamp=" + timestamp_val + "&url=" + url_total
-    var signature_val = window.sha1(string1);
+    console.log("签名随机数：", nonceStr_val)
+    var url_total = window.location.href
+    console.log("签名地址：", url_total)
+    var string1 = "jsapi_ticket=" + json.ticket + "&noncestr=" + nonceStr_val + "&timestamp=" + timestamp_val + "&url=" + url_total
+    console.log("签名字符串：", string1)
+    var signature_val = hex_sha1(string1)
+    console.log("签名结果：", signature_val)
     let jsApiList_val = ['checkJsApi', 'onMenuShareTimeline', 'onMenuShareAppMessage',
       'onMenuShareQQ', 'onMenuShareWeibo', 'startRecord', 'stopRecord',
       'onVoiceRecordEnd', 'playVoice', 'pauseVoice', 'stopVoice',
@@ -56,7 +61,7 @@ export default function () {
       'chooseCard', 'openCard' ];
     window.wx.config({
       debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-      appId: json.data.appid, // 必填，公众号的唯一标识
+      appId: json.appid, // 必填，公众号的唯一标识
       timestamp: timestamp_val, // 必填，生成签名的时间戳
       nonceStr: nonceStr_val, // 必填，生成签名的随机串
       signature: signature_val, // 必填，签名，见附录1
@@ -65,16 +70,16 @@ export default function () {
     })
   }
   // 获取ticketId, appid
-  Vue.http.post('/h5_gateway/weChatOpen/getWechatAccount.htm', queryParam).then((result) => {
+  Vue.http.post('/h5_api/wechat/queryAuthor', queryParam).then(res => {
     let json = {}
-    if (result.body.resCode == "00100000") {
-      json = JSON.parse(result.body.obj)
+    if (res.body.resCode == "00100000") {
+      json = res.body.obj
       console.log(json)
     }
-    localStorage.setItem("jsapi_appid", json.data.appid)
-    localStorage.setItem("jsapi_ticket", json.data.js_token)
+    localStorage.setItem("jsapi_appid", json.appid)
+    localStorage.setItem("jsapi_ticket", json.ticket)
     sign(json) // 进行config 注入
-  }, (result) => {
+  }, (res) => {
   })
   window.initShare = shareInfo => {
     let appId = localStorage.getItem("jsapi_appid")
@@ -82,8 +87,8 @@ export default function () {
     let json = {
       data: {}
     }
-    json.data.appid = appId
-    json.data.js_token = jsToken
+    json.appid = appId
+    json.ticket = jsToken
     sign(json)
     let shareData = shareInfo || _shareData;
     if (shareData.imgUrl && shareData.imgUrl.indexOf('http') == -1) {

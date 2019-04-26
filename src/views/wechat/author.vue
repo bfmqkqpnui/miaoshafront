@@ -86,18 +86,6 @@
         <div class="line"></div>
       </div>
     </template>
-    <!-- 活动规则 -->
-    <div class="modal modal-in" v-if="showActivityRule">
-      <div class="modal-inner">
-        <div class="modal-title hairline">活动规则</div>
-        <div class="modal-text">
-          <p v-html="secKillInfo.skillRule"></p>
-        </div>
-      </div>
-      <div class="modal-buttons">
-        <div class="modal-button" @click="toggleActivityuleRule('hide')">知道啦</div>
-      </div>
-    </div>
     <v-tab-bar :currentIndex="1"></v-tab-bar>
   </div>
 </template>
