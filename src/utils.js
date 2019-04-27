@@ -343,6 +343,48 @@ const isExist = opt => {
   return flag;
 }
 
+const getLocation = () => {
+  if (navigator.geolocation) {
+    return new Promise((resolve, reject)=> {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {//定位成功
+          let coords = position.coords
+          resolve(coords)
+        },
+        (error)=> {
+          //定位失败
+          console.log('获取地理位置失败')
+          switch (error.code) {
+            case error.TIMEOUT://超时
+                alert("A timeout occured! Please try again!")
+                break
+            case error.POSITION_UNAVAILABLE://表示无法确定设备的位置
+                alert('We can\'t detect your location. Sorry!')
+                break
+            case error.PERMISSION_DENIED://表示没有权限使用地理定位API
+                alert('Please allow geolocation access for this to work.')
+                break
+            case error.UNKNOWN_ERROR:
+                alert('An unknown error occured!')
+                break
+          }
+          reject(error)
+        },
+        {
+          // 指示浏览器获取高精度的位置，默认为false
+          enableHighAccuracy: true,
+          // 指定获取地理位置的超时时间，默认不限时，单位为毫秒
+          //timeout: Infinity,
+          timeout: 5000,
+          // 最长有效期，在重复获取地理位置时，此参数指定多久再次获取位置。
+          maximumAge: 1000000
+        })
+    })
+  } else {
+    alert("当前浏览器不支持定位")
+  }
+}
+
 export default {
   dbGet,
   dbSet,
@@ -365,4 +407,5 @@ export default {
   urlRemoveToken,
   isExist,
   giveCardCountDown,
+  getLocation
 }
