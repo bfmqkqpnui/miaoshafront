@@ -42,6 +42,11 @@ const install = function (Vue) {
     Vue.component('v-tab-bar', resolve => {
       require(['../components/common/tabbar.vue'], resolve)
     })
+
+    // 顶部个人中心
+    Vue.component('v-member-center', resolve => {
+      require(['../components/common/storHead.vue'], resolve)
+    })
 }
 
 // auto install
